@@ -145,6 +145,7 @@ public class TransferServiceImpl implements TransferService {
                 Inventory toInventory = inventoryRepository.findByProductAndLocationType(orderLine.getProduct(), LocationType.DISTRIBUTOR);
                 Inventory fromInventory = inventoryRepository.findByProductAndLocationType(orderLine.getProduct(), LocationType.RETAILER);
                 fromInventory.removeStock(orderLine.getQty());
+
                 toInventory.addStock(orderLine.getQty());
                 inventoryRepository.saveAndFlush(toInventory);
                 inventoryRepository.saveAndFlush(fromInventory);
@@ -159,6 +160,7 @@ public class TransferServiceImpl implements TransferService {
         }
         //update the order
 //        order.setOrderAmount(order.getOrderAmount()-);
+
 
         transfer.setStatus(TransferStatus.PENDING);
         transfer.setQty(transferDTO.getQuantityToTransfer());
